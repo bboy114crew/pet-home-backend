@@ -21,7 +21,6 @@ class ReportItem extends Component {
 
   _getAllUsers = () => {
     axios.get(`/api/admin/users`).then(res => {
-      console.log(res)
       this.setState({
         allusers: res.data.users,
         loadingUser: false

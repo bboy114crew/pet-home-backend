@@ -22,7 +22,7 @@ const productCategorySchema = mongoose.Schema({
 	},
 });
 
-let ProductCategory = module.exports = mongoose.model('ProductCategory', productCategorySchema);
+module.exports = mongoose.model('ProductCategory', productCategorySchema);
 
 productCategorySchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

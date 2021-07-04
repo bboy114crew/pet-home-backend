@@ -50,10 +50,10 @@ const verifyPhoneVerifyCode = async function (req, res) {
 				return ReEM2(res, 'Mã code không chính xác', 400);
 			}
 			const phone = results[0];
-			// if(new Date().getTime() - new Date(phone.updatedAt).getTime() > CONFIG.EXPIRATION_SMS_CODE){
+			if(new Date().getTime() - new Date(phone.updatedAt).getTime() > CONFIG.EXPIRATION_SMS_CODE){
 
-			// 	return ReEM2(res, 'Mã code đã hết hạn', 400);
-			// }
+				return ReEM2(res, 'Mã code đã hết hạn', 400);
+			}
 			return ReS(res, {
 				status: 'success',
 				message: 'Thành công'

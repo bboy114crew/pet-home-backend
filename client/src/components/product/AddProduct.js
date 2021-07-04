@@ -74,8 +74,6 @@ class AddProduct extends Component {
     axios
       .get(`/api/product/category/${ownerId}`)
       .then(res => {
-        console.log("hshshshshsh")
-        console.log(res.data.productParentCategories)  
         this.setState({
           listTypeProductCategory: res.data.productParentCategories,
           typeProductCategory: res.data.productParentCategories[0]._id
@@ -103,7 +101,6 @@ class AddProduct extends Component {
       return false;
     }
     if(this.state.typeProductCategory === '') {
-      console.log(this.state.typeProductCategory);
       this.refs.typeProductValidate.innerHTML ='Bạn chưa tạo loại sản phẩm/dịch vụ nào hãy tạo chúng';
       return false;
     }
@@ -150,7 +147,6 @@ class AddProduct extends Component {
       }
 
       if (file.size > 10000000) {
-        console.log(file.size);
         errs.push(`'${file.name}' is too large, please pick a smaller file`)
       }
 
@@ -192,7 +188,7 @@ class AddProduct extends Component {
   }
 
   removeImage = id => {
-    this.setState({ images: this.filter(id) }, () => console.log(this.state.images))
+    this.setState({ images: this.filter(id) })
   }
 
   onError = id => {
@@ -202,8 +198,7 @@ class AddProduct extends Component {
 
   render() {
     const { loadingU, uploading, images, listTypeProductCategory } = this.state
-    const { productParentCategories , loading } = this.props.product;  
-    console.log(this.state);
+    const { loading } = this.props.product;  
     const content = () => {
       switch(true) {
         case loadingU:
@@ -211,7 +206,6 @@ class AddProduct extends Component {
         case uploading:
           return <SpinnerU />
         case images.length > 0:
-          console.log(images)
           return <Images 
                   images={images}
                   removeImage={this.removeImage} 

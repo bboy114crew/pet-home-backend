@@ -27,7 +27,6 @@ const onConnection = socket => {
 };
 
 const joinConversation = (socket, conversation) => {
-  console.log("socket joined: ", conversation._id);
   socket.join(conversation._id);
 };
 

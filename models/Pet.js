@@ -69,7 +69,7 @@ const petSchema = mongoose.Schema({
   },
 });
 
-let Pet = (module.exports = mongoose.model("Pet", petSchema));
+module.exports = mongoose.model("Pet", petSchema);
 
 petSchema.pre("save", async function(next) {
   const currTime = new Date().getTime();

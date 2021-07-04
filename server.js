@@ -45,13 +45,11 @@ db.on("error", error => {
   console.log("error", error);
 });
 
-/**
- * Create HTTP server.
- */
+// Create HTTP server.
 const server = http.createServer(app);
 
 
-// initial socket io
+// Socket io
 SocketService.configure(server);
 
 app.use(logger("dev"));
@@ -65,10 +63,10 @@ app.get("/", (req, res) => {
 res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
-//Passport
+// Passport
 app.use(passport.initialize());
 
-//CORS
+// CORS
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -105,16 +103,12 @@ app.use(function(err, req, res, next) {
 const port = normalizePort(process.env.PORT || "5000");
 app.set("port", port);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+// Listen on provided port, on all network interfaces.
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
-/**
- * Normalize a port into a number, string, or false.
- */
+// Normalize a port into a number, string, or false.
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -131,9 +125,7 @@ function normalizePort(val) {
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
+// Event listener for HTTP server "error" event.
 function onError(error) {
   if (error.syscall !== "listen") {
     throw error;
@@ -141,7 +133,7 @@ function onError(error) {
 
   var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
-  // handle specific listen errors with friendly messages
+  // Handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
       console.error(bind + " requires elevated privileges");
@@ -156,9 +148,7 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+// Event listener for HTTP server "listening" event.
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;

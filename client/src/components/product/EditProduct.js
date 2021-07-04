@@ -32,7 +32,6 @@ const toastColor = {
 class EditProduct extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.location.state);
     const { _id, name, images, price, description, typeId} = this.props.location.state
     this.state = {
       id: _id,

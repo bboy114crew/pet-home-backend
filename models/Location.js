@@ -56,7 +56,7 @@ const locationSchema = mongoose.Schema({
 
 locationSchema.index({ location: "2dsphere" }); 
 
-let Location = module.exports = mongoose.model('Location', locationSchema);
+module.exports = mongoose.model('Location', locationSchema);
 
 locationSchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

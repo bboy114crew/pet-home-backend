@@ -22,7 +22,8 @@ module.exports.sendSMSVerification = sendSMSVerification;
 const sendSMSPassword = async (phoneNumber, newPassword) => {
 	const mesage = 'Pet Home! Mật khẩu tài khoản của bạn là: ' + newPassword;
 	try {
-		const statusSendSMS = await sendSMS(phoneNumber, mesage);
+		await sendSMS(phoneNumber, mesage);
+		return Promise.resolve('success');
 	} catch (error) {
 		return Promise.reject('Gửi SMS không thành công');
 	}
@@ -31,7 +32,7 @@ module.exports.sendSMSPassword = sendSMSPassword;
 
 const adminSendSMS = async (phoneNumber, message) => {
 	try {
-		const statusSendSMS = await sendSMS(phoneNumber, message);
+		await sendSMS(phoneNumber, message);
 	} catch (error) {
 		return Promise.reject('Gửi SMS không thành công');
 	}

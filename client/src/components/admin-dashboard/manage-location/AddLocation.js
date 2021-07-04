@@ -134,7 +134,6 @@ class AddLocation extends Component {
       ownerId: this.props.auth.user.user_id
     };
     this.props.addlocationByAdmin(addedLocation, this.props.history);
-    // console.log(addedLocation)
   }
 
   onCancel = (e) => {

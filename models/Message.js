@@ -25,7 +25,7 @@ let messageSchema = mongoose.Schema({
 	deletionFlag: {type: Number, default: 1}
 });
 
-let Message = module.exports = mongoose.model('Message', messageSchema);
+module.exports = mongoose.model('Message', messageSchema);
 
 messageSchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

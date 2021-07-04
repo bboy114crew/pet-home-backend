@@ -25,7 +25,7 @@ const productParentCategorySchema = mongoose.Schema({
 	},
 });
 
-let ProductParentCategory = module.exports = mongoose.model('ProductParentCategory', productParentCategorySchema);
+module.exports = mongoose.model('ProductParentCategory', productParentCategorySchema);
 
 productParentCategorySchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

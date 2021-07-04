@@ -31,7 +31,7 @@ let PhoneVerificationSchema = mongoose.Schema({
 	}
 });
 
-let PhoneVerification = module.exports = mongoose.model('PhoneVerification', PhoneVerificationSchema);
+module.exports = mongoose.model('PhoneVerification', PhoneVerificationSchema);
 
 PhoneVerificationSchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

@@ -29,7 +29,7 @@ const reviewSchema = mongoose.Schema({
 	},
 });
 
-let Review = module.exports = mongoose.model('LocationReview', reviewSchema);
+module.exports = mongoose.model('LocationReview', reviewSchema);
 
 reviewSchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

@@ -54,7 +54,6 @@ import {
             loading: false
           };
         case GET_PRODUCT_DETAIL:
-          console.log(action.payload)
           return {
             ...state,
             productDetail: action.payload,

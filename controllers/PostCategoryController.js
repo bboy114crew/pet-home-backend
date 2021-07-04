@@ -12,7 +12,7 @@ const add = async (req, res) => {
   }
 };
 
-const get = async (req, res) => {
+const get = async (_, res) => {
   res.setHeader("Content-Type", "application/json");
   try {
     const categories = await postCategoryService.getAll();
@@ -57,7 +57,6 @@ const updateNameById = async (req, res) => {
   try {
     const id = req.body.id;
     const name = req.body.name;
-    console.log(req.body)
     const result = await postCategoryService.updateNameById(id,req.body.field, name);
     return ReS(res, { result }, 200);
   } catch (error) {

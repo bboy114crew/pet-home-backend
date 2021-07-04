@@ -63,7 +63,6 @@ class LocationAdmin extends Component {
   }
 
   _onToggle= (item) => {
-    console.log("_onToggle")
     this.setState({
       modal: !this.state.modal,
       _id: item._id
@@ -74,8 +73,6 @@ class LocationAdmin extends Component {
     this.setState({
       modal: !this.state.modal
     });
-    console.log("_onConfirm")
-    console.log(this.state._id);
     this.props.deleteAdminLocation({_id: this.state._id}, this.props.history);
     axios.get('/api/admin/getLocation').then(res => {
       this.setState({
@@ -88,7 +85,6 @@ class LocationAdmin extends Component {
   }
 
   _onCancel = () => {
-    console.log("_onCancel")
     this.setState({
       modal: !this.state.modal
     });

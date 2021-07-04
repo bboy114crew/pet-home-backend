@@ -6,7 +6,7 @@ const constants = require('../utils/constants');
 // @route   GET api/location/locationCategories
 // @desc    Get location category
 // @access  Public
-const getLocationCategories = async function (req, res) {
+const getLocationCategories = async function (_, res) {
   res.setHeader('Content-Type', 'application/json');
   let erro, locationCategories;
   [erro, locationCategories] = await to(locationService.getLocationCategories());
@@ -37,7 +37,6 @@ const addLocaionByAdmin = async function (req, res) {
       description: req.body.description,
       images: req.body.images
     });
-    let error, loca;
     [error, loca] = await to(Location.create(location));
     return ReS(res, { success: 'success' }, 200);
 	} catch (e) {
@@ -86,7 +85,6 @@ const addLocationCategory = async function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   try {
     const result = await locationService.addLocationCategory(req.body.name,req.body.typeLocation);
-    // console.log('>> ', result)
     return ReS(res, { result }, 200);
   } catch (error) {
     return ReE(res, error, 422);
@@ -165,7 +163,7 @@ const searchDist = async function (req, res) {
   let lat = parseFloat(req.params.lat);
   let radius = parseInt(req.params.radius);
 	try {
-    let listLocations = await Location.aggregate([
+    await Location.aggregate([
       {
         $geoNear: {
           near: { type: "Point", coordinates: [ long , lat ] },
@@ -178,7 +176,7 @@ const searchDist = async function (req, res) {
         }
       },
       { "$skip": 0 },
-    ]).exec(function (err, docs) {
+    ]).exec(function (_, docs) {
       LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
         if (err) return err;
         const listLocation = populatedTransactions.map(item  => {
@@ -223,7 +221,7 @@ module.exports.searchDist = searchDist;
 // @route   GET api/admin/getAllLocations
 // @desc    
 // @access  Public
-const getAllLocations = async function (req, res) {
+const getAllLocations = async function (_, res) {
   res.setHeader('Content-Type', 'application/json');
   let erro, location;
   [erro, location] = await to(locationService.getAllLocations());
@@ -257,7 +255,7 @@ module.exports.getLocationById = getLocationById;
 // @route   GET api/location/getAllActiveLocation
 // @desc    
 // @access  Public
-const getAllActiveLocation = async function (req, res) {
+const getAllActiveLocation = async function (_, res) {
   res.setHeader('Content-Type', 'application/json');
   let erro, activeLocations;
   [erro, activeLocations] = await to(locationService.getAllActiveLocation());
@@ -301,8 +299,6 @@ const searchAllLocations = async function (req, res) {
   const lat = parseFloat(req.query.lat);
   const long = parseFloat(req.query.long);
   const typeIdArray = req.query.typeIdArray;
-  console.log("typeIdArray");
-  console.log(typeIdArray);
   let listLocations = [];
   let listLocationDist = [];
 
@@ -318,7 +314,7 @@ const searchAllLocations = async function (req, res) {
           systemRating: { $gte: ratingGt , $lte: ratingLt}
         }
       );
-      let result = await Location.aggregate([
+      await Location.aggregate([
         {
           $geoNear: {
             near: { type: "Point", coordinates: [ long , lat ] },
@@ -331,7 +327,7 @@ const searchAllLocations = async function (req, res) {
           }
         },
         { "$skip": 0 },
-      ]).exec(function (err, docs) {
+      ]).exec(function (_, docs) {
         LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
           if (err) return err;
           listLocationDist = populatedTransactions.map(item  => {
@@ -401,7 +397,7 @@ const searchAllLocations = async function (req, res) {
           systemRating: { $gte: ratingGt , $lte: ratingLt}
         }
       );
-      let result = await Location.aggregate([
+      await Location.aggregate([
         {
           $geoNear: {
             near: { type: "Point", coordinates: [ long , lat ] },
@@ -414,7 +410,7 @@ const searchAllLocations = async function (req, res) {
           }
         },
         { "$skip": 0 },
-      ]).exec(function (err, docs) {
+      ]).exec(function (_, docs) {
         LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
           if (err) return err;
           listLocationDist = populatedTransactions.map(item  => {
@@ -459,7 +455,7 @@ const searchAllLocations = async function (req, res) {
           },
         }
       );
-      let result = await Location.aggregate([
+      await Location.aggregate([
         {
           $geoNear: {
             near: { type: "Point", coordinates: [ long , lat ] },
@@ -472,7 +468,7 @@ const searchAllLocations = async function (req, res) {
           }
         },
         { "$skip": 0 },
-      ]).exec(function (err, docs) {
+      ]).exec(function (_, docs) {
         LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
           if (err) return err;
           listLocationDist = populatedTransactions.map(item  => {
@@ -516,7 +512,7 @@ const searchAllLocations = async function (req, res) {
           },
         }
       );
-      let result = await Location.aggregate([
+      await Location.aggregate([
         {
           $geoNear: {
             near: { type: "Point", coordinates: [ long , lat ] },
@@ -529,7 +525,7 @@ const searchAllLocations = async function (req, res) {
           }
         },
         { "$skip": 0 },
-      ]).exec(function (err, docs) {
+      ]).exec(function (_, docs) {
         LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
           if (err) return err;
           listLocationDist = populatedTransactions.map(item  => {
@@ -617,7 +613,7 @@ const searchAllLocations = async function (req, res) {
         ]
       }
     );
-    let result = await Location.aggregate([
+    await Location.aggregate([
       {
         $geoNear: {
           near: { type: "Point", coordinates: [ long , lat ] },
@@ -630,7 +626,7 @@ const searchAllLocations = async function (req, res) {
         }
       },
       { "$skip": 0 },
-    ]).exec(function (err, docs) {
+    ]).exec(function (_, docs) {
       LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
         if (err) return err;
         listLocationDist = populatedTransactions.map(item  => {
@@ -678,7 +674,7 @@ const searchAllLocations = async function (req, res) {
         ]
       }
     );
-    let result = await Location.aggregate([
+    await Location.aggregate([
       {
         $geoNear: {
           near: { type: "Point", coordinates: [ long , lat ] },
@@ -691,7 +687,7 @@ const searchAllLocations = async function (req, res) {
         }
       },
       { "$skip": 0 },
-    ]).exec(function (err, docs) {
+    ]).exec(function (_, docs) {
       LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
         if (err) return err;
         listLocationDist = populatedTransactions.map(item  => {
@@ -739,7 +735,7 @@ const searchAllLocations = async function (req, res) {
         ]
       }
     );
-    let result = await Location.aggregate([
+    await Location.aggregate([
       {
         $geoNear: {
           near: { type: "Point", coordinates: [ long , lat ] },
@@ -752,7 +748,7 @@ const searchAllLocations = async function (req, res) {
         }
       },
       { "$skip": 0 },
-    ]).exec(function (err, docs) {
+    ]).exec(function (_, docs) {
       LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
         if (err) return err;
         listLocationDist = populatedTransactions.map(item  => {
@@ -813,7 +809,7 @@ const searchAllLocations = async function (req, res) {
         ]
       }
     );
-    let result = await Location.aggregate([
+    await Location.aggregate([
       {
         $geoNear: {
           near: { type: "Point", coordinates: [ long , lat ] },
@@ -826,7 +822,7 @@ const searchAllLocations = async function (req, res) {
         }
       },
       { "$skip": 0 },
-    ]).exec(function (err, docs) {
+    ]).exec(function (_, docs) {
       LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
         if (err) return err;
         listLocationDist = populatedTransactions.map(item  => {
@@ -908,7 +904,7 @@ module.exports.getLocationProfile = getLocationProfile;
 // @route   GET api/location/locationCategoriesWithType
 // @desc    
 // @access  Public
-const getLocationCategoriesWithType = async function (req, res) {
+const getLocationCategoriesWithType = async function (_, res) {
   res.setHeader('Content-Type', 'application/json');
   try {
     const list = await LocationCategory.find({ hiddenFlag: false});

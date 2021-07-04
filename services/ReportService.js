@@ -57,15 +57,6 @@ const getReportByPostId = async (postId) => {
     throw error;
   }
 };
-// const getTotalReports = async () => {
-// 	try {
-//     let res  = await Report.aggregate().group({_id: '$postId' , count: { $sum: 1 }})
-//     return res;
-// 	}
-// 	catch (e) {
-// 		return TE(res, 'Get report failed', 503);
-// 	}
-// };
 
 module.exports = {
     addReport,

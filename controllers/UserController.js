@@ -1,8 +1,6 @@
-const authService = require('./../services/AuthService');
 const User = require('../models/User');
 const constants = require('../utils/constants');
 const phoneService = require('./../services/PhoneService');
-const userService = require('./../services/UserService');
 
 const forgotPassword = async function (req, res) {
 	if (!req.params.phoneNumber) {
@@ -16,7 +14,7 @@ const forgotPassword = async function (req, res) {
 			objUser.set({ password: newPassword });
 			let objUserReturn = await objUser.save();
 			if (objUserReturn) {
-				let [errors, status] = await to(phoneService.sendSMSPassword(req.params.phoneNumber, newPassword));
+				let [errors, _] = await to(phoneService.sendSMSPassword(req.params.phoneNumber, newPassword));
 				if (errors) {
 					return ReEM2(res, 'Có lỗi khi gửi message!', 400);
 				} else {
@@ -34,7 +32,7 @@ const forgotPassword = async function (req, res) {
 };
 module.exports.forgotPassword = forgotPassword;
 
-const getUserById = async function (req, res, next) {
+const getUserById = async function (req, res, _) {
 	const userId = req.params.userId;
 	if (!userId) {
 		ReE(res, {
@@ -71,7 +69,7 @@ const getUserById = async function (req, res, next) {
 };
 module.exports.getUserById = getUserById;
 
-const getAllUsers = async function (req, res, next) {
+const getAllUsers = async function (_, res, _) {
 	User.find({}).where('role').equals(constants.ROLE_USER)
 	.exec((err, results) => {
 		if (err) {
@@ -85,8 +83,8 @@ const getAllUsers = async function (req, res, next) {
 };
 module.exports.getAllUsers = getAllUsers;
 
-const banUserById = async function (req, res, next) {
-	User.findByIdAndUpdate(req.body.id, { $set: { deletionFlag: req.body.deletionFlag }}, { new: true }, (err, results) => {
+const banUserById = async function (req, res, _) {
+	User.findByIdAndUpdate(req.body.id, { $set: { deletionFlag: req.body.deletionFlag }}, { new: true }, (err, _) => {
 		if (err) {
 			return ReE(res, err, 500);
 		}

@@ -18,10 +18,10 @@ let NotificationSchema = mongoose.Schema({
   deletionFlag: { type: Boolean, default: false },
 });
 
-let Notification = (module.exports = mongoose.model(
+module.exports = mongoose.model(
   "Notification",
   NotificationSchema
-));
+);
 
 NotificationSchema.pre("save", async function(next) {
   const currTime = new Date().getTime();

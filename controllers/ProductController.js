@@ -66,7 +66,6 @@ module.exports.getProductDetailById = getProductDetailById;
 
 const getProductDetailByIdForApp = async (req, res)=> {
   res.setHeader('Content-Type', 'application/json');
-  console.log("Vao day")
   let error, productDetailForApp;
   [error, productDetailForApp] = await to(productService.getProductByIdForApp(req.query.id));
   if (error) return ReE(res, 'Không thể lấy sản phẩm', 422);
@@ -144,7 +143,7 @@ module.exports.getProductByIds = getProductByIds;
 
 const addProductParentCategory = async function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let erro, addProductParentCategory;
+  let erro;
   [erro, addProductParentCategory] = await to(productService.createProductParentCategory(req.body));
   if (erro) {
     return ReE(res, 'Thêm mới PPC không thành công, vui lòng thử lại sau', 422);
@@ -158,7 +157,7 @@ module.exports.addProductParentCategory = addProductParentCategory;
 
 const updateProductParentCategory = async function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let erro, updateProductParentCategory;
+  let erro;
   [erro, updateProductParentCategory] = await to(productService.updateProductParentCategory(req.body));
   if (erro) {
     return ReE(res, 'Thêm mới PPC không thành công, vui lòng thử lại sau', 422);

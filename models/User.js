@@ -141,7 +141,7 @@ UserSchema.virtual("fullName").get(function () {
 });
 
 UserSchema.methods.getJWT = function () {
-  let expiration_time = parseInt(CONFIG.jwt_expiration);
+  let expiration_time = parseInt(CONFIG.JWT_EXPIRATION);
   return (
     "Bearer " +
     jwt.sign(
@@ -154,7 +154,7 @@ UserSchema.methods.getJWT = function () {
         deletionFlag: this.deletionFlag,
         avatar: this.avatar,
       },
-      CONFIG.jwt_encryption,
+      CONFIG.JWT_ENCRYPTION,
       {
         expiresIn: expiration_time,
       }
@@ -171,4 +171,4 @@ UserSchema.methods.toWeb = function () {
 
 UserSchema.index({ appName: "text" });
 
-let User = (module.exports = mongoose.model("User", UserSchema));
+module.exports = mongoose.model("User", UserSchema);

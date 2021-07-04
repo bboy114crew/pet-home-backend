@@ -1,12 +1,11 @@
 const adminService = require('./../services/AdminService');
-const constants = require('./../utils/constants');
 
 // @route   POST api/admin/addLocationCategory
 // @desc    Create location category
 // @access  Private
 const addLocationCategory = async function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let erro, locationCategory;
+  let erro;
   [erro, locationCategory] = await to(adminService.createLocationCategory(req.body));
   if (erro) {
     return ReE(res, 'Thêm mới LC không thành công, vui lòng thử lại sau', 422);
@@ -23,7 +22,7 @@ module.exports.addLocationCategory = addLocationCategory;
 // @access  Private
 const addLocation = async function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let erro, location;
+  let erro;
   [erro, location] = await to(adminService.createLocation(req.body));
   if (erro) {
     return ReE(res, 'Thêm mới địa điểm không thành công, vui lòng thử lại sau', 422);

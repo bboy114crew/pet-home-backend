@@ -1,9 +1,6 @@
 const Post = require("../models/Post");
 const ExpoService = require("./ExpoService");
-const AppUserService = require("./AppUserService");
 const mongoose = require("mongoose");
-const ReportService = require("../services/ReportService");
-const Report = require("../models/Report");
 const NotificationService = require("./NotificationService");
 
 //#region post controller
@@ -43,17 +40,6 @@ const filterUserBanned = (posts = []) => {
   return posts.filter(p => p.ownerId.deletionFlag === false);
 };
 
-// const get = async () => {
-//  get private post
-//   try {
-//     const result = await Post.find({ status: { $eq: 0 } }).sort({ _id: -1 });
-//     if (result) return result;
-//     throw "Get all post failed";
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 const getPublicByTypeId = async typeId => {
   try {
     const result = await Post.find({
@@ -86,7 +72,6 @@ const getByOwnerId = async ownerId => {
         deletionFlag: 1,
       })
       .sort({ _id: -1 });
-    console.log(result);
     return filterUserBanned(result);
   } catch (error) {
     throw error;
@@ -425,7 +410,7 @@ const addReport = async (postId, report) => {
   try {
     const reported = await isReported(postId, report.userReportId);
     if (reported) return "Bạn đã tố cáo bài viết này";
-    const result = await Post.findByIdAndUpdate(postId, {
+    await Post.findByIdAndUpdate(postId, {
       $push: {
         reports: report,
       },
@@ -466,22 +451,17 @@ module.exports = {
   getByOwnerId,
   getPublicByTypeId,
   findPostById,
-  /////////////////
   getImages,
   addImages,
   removeImage,
-  ////////////////
   getComments,
   addComment,
   editComment,
   deleteComment,
-  ///////////////
   vote,
   getVoteByType,
-  /////////////
   addReport,
   getReports,
-  //
   testNotification,
   findPostById,
 };

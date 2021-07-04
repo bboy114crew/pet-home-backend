@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const constants = require('../utils/constants');
+
 const banUserService = async (userId, updateOptions) => {
   try {
     const options = {};
@@ -20,4 +20,5 @@ const banUserService = async (userId, updateOptions) => {
     throw error;
   }
 };
+
 module.exports.banUserService = banUserService;

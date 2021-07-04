@@ -22,7 +22,7 @@ const add = async (req, res) => {
   }
 };
 
-const get = async (req, res) => {
+const get = async (_, res) => {
   res.setHeader("Content-Type", "application/json");
   try {
     const result = await PostService.get();
@@ -248,7 +248,7 @@ const getReports = async (req, res) => {
 };
 //#endregion
 
-const testNotification = async (req, res) => {
+const testNotification = async (_, res) => {
   res.setHeader("Content-Type", "application/json");
   try {
     const result = await PostService.testNotification();
@@ -258,23 +258,6 @@ const testNotification = async (req, res) => {
   }
 };
 
-const temp = async (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-  try {
-    return ReS(res, { result }, 200);
-  } catch (error) {
-    return ReE(res, error, 422);
-  }
-};
-
-const getPosterById = async id => {
-  try {
-    let user = await User.findById(id).select("appName _id");
-    return user;
-  } catch (error) {
-    return ReE(res, error, 422);
-  }
-};
 const getPostById = async (req, res) => {
   res.setHeader("Content-Type", "application/json");
   try {
@@ -294,24 +277,17 @@ module.exports = {
   getByOwnerId,
   getPublicByTypeId,
   deleteById,
-
-  ////////////
   getImages,
   addImages,
   removeImage,
-  ////////////
   getComments,
   addComment,
   editComment,
   deleteComment,
-  ///////////
   vote,
   getVoteByType,
-  /////////////
   addReport,
   getReports,
-  //
   testNotification,
-  //
   getPostById,
 };

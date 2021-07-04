@@ -18,7 +18,7 @@ const petCategorySchema = mongoose.Schema({
 	},
 });
 
-let PetCategory = module.exports = mongoose.model('PetCategory', petCategorySchema);
+module.exports = mongoose.model('PetCategory', petCategorySchema);
 
 petCategorySchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

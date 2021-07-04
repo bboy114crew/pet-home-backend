@@ -50,7 +50,7 @@ const getProductParentCategoriesProduct = async (ownerId) => {
 };
 module.exports.getProductParentCategoriesProduct = getProductParentCategoriesProduct;
 
-const getProductByIds = async (ownerId,name) => {
+const getProductByIds = async (ownerId) => {
 	try {
     let getProductByIdList = await Product.find({ deletionFlag: false, ownerId: ownerId}).populate("typeId");
 		return getProductByIdList;
@@ -62,20 +62,17 @@ const getProductByIds = async (ownerId,name) => {
 module.exports.getProductByIds = getProductByIds;
 
 const createProductParentCategory = async (productParentCategoryDetail) => {
-	let productParentCategory, err;
 	[err, productParentCategory] = await to(ProductParentCategory.create(productParentCategoryDetail));		
 };
 module.exports.createProductParentCategory = createProductParentCategory;
 
 const updateProductParentCategory = async (productParentCategoryDetail) => {
-	let productParentCategory, err;
 	[err, productParentCategory] = await to(ProductParentCategory.findByIdAndUpdate(productParentCategoryDetail.id,productParentCategoryDetail));		
 };
 module.exports.updateProductParentCategory = updateProductParentCategory;
 
 //product delete
 const deleteProduct = async (productDetail) => {
-	let product, err;
 	[err, product] = await to(Product.findByIdAndDelete(productDetail.id));		
 };
 module.exports.deleteProduct = deleteProduct;

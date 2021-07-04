@@ -25,7 +25,7 @@ const locationCategorySchema = mongoose.Schema({
 	},
 });
 
-let LocationCategory = module.exports = mongoose.model('LocationCategory', locationCategorySchema);
+module.exports = mongoose.model('LocationCategory', locationCategorySchema);
 
 locationCategorySchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();

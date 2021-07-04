@@ -11,15 +11,12 @@ const createUser = async (userDetail, avatar) => {
 	if (validator.isMobilePhone(userDetail.phoneNumber, 'any')) {
 		auth_info.method = 'phone';
     let err,user;
-    console.log("userDetail");
-    console.log(userDetail);
 		[err, user] = await to(User.create(userDetail));
 		if (err) TE('Số điện thoại đã được đăng ký');
 		if (user.role === constants.ROLE_USER) {
 			// To do
 		}
 		if (user.role === constants.ROLE_LOCATION_MANAGER) {
-      console.log("ROLE_LOCATION_MANAGER");
 			let location = new Location({
 				name: userDetail.name,
 				ownerId: user._id,
@@ -27,8 +24,7 @@ const createUser = async (userDetail, avatar) => {
 				location: userDetail.location,
 				address: userDetail.address
       });
-      console.log(location);
-			let error, loca;
+			let error;
 			[error, loca] = await to(Location.create(location));
 			if (error) {
 				TE('Error save location');

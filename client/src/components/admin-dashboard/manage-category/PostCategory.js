@@ -99,7 +99,6 @@ class PostCategory extends Component {
   }
 
   _filterByStatus = (e) => {
-    // console.log(this.refs.search.getElementsByClassName('statusFlagLocation'))
     const list = this.refs.tesst.getElementsByClassName('statusFlagPost');
     const itemm = this.refs.tesst.getElementsByClassName('itemSearch');
     if (this.refs.all.checked)

@@ -1,7 +1,6 @@
 const LocationCategory = require('../models/LocationCategory');
 const Location = require('../models/Location');
 const Product =require('../models/Product');
-const constants = require('../utils/constants');
 
 const getLocationCategoriesByType = async (type) => {
 	try {
@@ -49,7 +48,6 @@ const addLocationCategory = async (val, type) => {
     const result = await LocationCategory.create({ name: val , typeLocation: type});
     return result;
   } catch (error) {
-    console.log(error)
     throw error;
   }
 };
@@ -83,7 +81,7 @@ const updateLocationCategoryById = async (id, field,value) => {
 };
 module.exports.updateLocationCategoryById = updateLocationCategoryById;
 
-const getTotalCountLocationByTypeId = async (id) => {
+const getTotalCountLocationByTypeId = async () => {
   try {
     let res = await Location.aggregate().group({ _id: '$typeId', total: { $sum: 1 } });
     return res;
@@ -142,41 +140,8 @@ const searchNearByLatLong = async (locationDetail) => {
 };
 module.exports.searchNearByLatLong = searchNearByLatLong;
 
-const searchDist = async (locationDetail) => {
-
-  let long = parseFloat(locationDetail.long);
-  let lat = parseFloat(locationDetail.lat);
-  let radius = parseInt(locationDetail.radius);
-	try {
-    let listLocations = await Location.aggregate([
-      {
-        $geoNear: {
-          near: { type: "Point", coordinates: [long, lat] },
-          key: "location",
-          distanceField: "dist.calculated",
-          maxDistance: radius,
-          minDistance: 0,
-          includeLocs: "dist.location",
-          spherical: true
-        }
-      },
-      { "$skip": 0 },
-    ]).exec(function (err, docs) {
-      if(err) return err;
-      LocationCategory.populate(docs, { path: 'typeId' }, function (err, populatedTransactions) {
-        if (err) return err;
-        return populatedTransactions;
-      });
-    });
-	} catch (e) {
-		return e;
-	}		
-};
-module.exports.searchDist = searchDist;
-
 const updateLocation = async (locationDetail) => {
   try {
-    const update = await to(Location.findByIdAndUpdate(locationDetail._id,locationDetail));
     const locationProfile = await to(Location.findById(locationDetail._id));
     return locationProfile[1];
   }
@@ -188,7 +153,6 @@ module.exports.updateLocation= updateLocation;
 
 const deleteLocationByAdmin = async (locationDetail) => {
   try {
-    const update = await to(Location.findByIdAndUpdate(locationDetail._id, {deletionFlag: true}));
     const locationProfile = await to(Location.findById(locationDetail._id));
     return locationProfile[1];
   }

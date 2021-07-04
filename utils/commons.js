@@ -1,6 +1,4 @@
-/**
- * Global function that will help use handle promise rejections
- */
+// Global function that will help use handle promise rejections
 to = function (promise) {
 	return promise
 		.then(data => {
@@ -12,9 +10,7 @@ to = function (promise) {
 
 pe = require('parse-error');
 
-/**
- * Throw Error
- */
+// Throw Error
 TE = function (err_message, log) { 
 	if (log === true) {
 		console.error(err_message);
@@ -23,14 +19,12 @@ TE = function (err_message, log) {
 	throw new Error(err_message);
 };
 
-// error message to client
+// Error message to client
 TEM = function (message) {
 	throw {message}
 }
 
-/**
- * Error Web Response
- */
+// Error Web Response
 ReE = function (res, err, code) { 
 	if (typeof err == 'object' && typeof err.message != 'undefined') {
 		err = err.message;
@@ -61,9 +55,7 @@ ReEM2 = function (res, err, code) {
 	return res.json({success: false, error: { message2:err}});
 };
 
-/**
- * Success Web Response
- */
+// Success Web Response
 ReS = function (res, data, code) { 
 	let send_data = {success: true};
 

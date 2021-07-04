@@ -56,7 +56,7 @@ let postSchema = mongoose.Schema({
 
 postSchema.index({ title: "text", "ownerId.appName": "text" });
 
-let Post = (module.exports = mongoose.model("Post", postSchema));
+(module.exports = mongoose.model("Post", postSchema));
 
 postSchema.pre("save", async function(next) {
   const currTime = new Date().getTime();

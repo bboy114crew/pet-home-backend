@@ -12,7 +12,7 @@ const savePhoneVerification = async (phoneNumber, code) => {
 			new: true,
 			setDefaultsOnInsert: true
 		};
-	const status = await PhoneVerification.findOneAndUpdate(query, update, options, (error, result) => {
+	await PhoneVerification.findOneAndUpdate(query, update, options, (error, result) => {
 		if (!error) {
 			result.code = code;
 			result.status = 1;

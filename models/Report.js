@@ -30,7 +30,7 @@ let ReportSchema = mongoose.Schema({
 	}
 });
 
-let Report = module.exports = mongoose.model('Report', ReportSchema);
+module.exports = mongoose.model('Report', ReportSchema);
 
 ReportSchema.pre('save', async function (next) {
 	const currTime = new Date().getTime();
