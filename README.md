@@ -16,4 +16,5 @@ Main feature:
 - Create and manage Post
 - Create and manage Product
 - Search pet service around
+
 ![Visualization of the codebase](./diagram.svg)
