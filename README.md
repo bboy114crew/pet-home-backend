@@ -1,6 +1,6 @@
 # Introduction
-ph-be is Backend for Pet-shop which is Mobile application written by React Native.
-Include web dashboard written Reactjs
+This is backend for my capstone project.
+ph-be include backend built with Expressjs and web dashboard built with Reactjs. 
 
 Pet Home is tiny social network for people who love pet. You can
 - Sharing post about your pet
@@ -16,5 +16,6 @@ Main feature:
 - Create and manage Post
 - Create and manage Product
 - Search pet service around
+- ...
 # Codebase
 ![Visualization of the codebase](./diagram.svg)
