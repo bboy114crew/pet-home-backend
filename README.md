@@ -1,6 +1,6 @@
 # Introduction
 This is backend for my capstone project.
-ph-be include backend built with Nodejs,Expressjs and web dashboard built with Reactjs. 
+pet-home-backend include backend built with Nodejs,Expressjs and web dashboard built with Reactjs. 
 
 Pet Home is tiny social network for people who love pet. You can
 - Sharing post about your pet
@@ -8,8 +8,8 @@ Pet Home is tiny social network for people who love pet. You can
 - Match pet like tinder, pet's owner can chat with each other if mathched.
 - User have own shop can create and manage product in shop .
 
-# Back-end
-Main feature:
+# Backend main feature:
+
 - Authentication
 - Authorization
 - Create and manage Post
